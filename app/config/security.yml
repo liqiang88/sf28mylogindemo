@@ -1,0 +1,50 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+#        Symfony\Component\Security\Core\User\User: plaintext
+#            algorithm: bcrypt
+#            cost: 12
+         AppBundle\Entity\User:
+              algorithm: bcrypt    #加密方式
+#              cost: 12            ＃加密复杂度
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+#                property: username     ＃如果注释掉会执行UserRespository loadUserByUsername方法，否则只根据属性username去检测用户
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: ~      #允许匿名访问
+#            http_basic: ~
+            provider: our_db_provider
+            form_login:
+                check_path: /login_check  #表单提交路由
+                login_path: /login        #登录页面跳转
+                #default_target_path: /
+            logout:
+                path: /logout
+                target: /      #退出后跳转地址
+
+
+
+    access_control:
+            # require ROLE_ADMIN for /admin*
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }   #登录页面加入白名单允许匿名访问
+        - { path: ^/adm/, roles: ROLE_ADMIN }       #指定角色可以访问
+
+
+    role_hierarchy:
+            ROLE_ADMIN:      [ROLE_USER]    #用户角色继承
+            ROLE_SUPERADMIN: [ROLE_ADMIN]   #用户角色继承

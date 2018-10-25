@@ -1,2 +1,1 @@
-# sf28mylogindemo
-user login demo for symfony2.8
+基于symfony2.8的用户登录Demo
