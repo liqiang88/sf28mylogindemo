@@ -1,0 +1,22 @@
+<?php
+$container->loadFromExtension('security', array(
+    'providers' => array(
+        'in_memory' => array(
+            'memory' => null,
+        ),
+    ),
+    'firewalls' => array(
+        'dev' => array(
+            'pattern'   => '^/(_(profiler|wdt)|css|images|js)/',
+            'security'  => false,
+        ),
+        'main' => array(
+            'anonymous' => null,
+            'http_basic' => null,
+        ),
+    ),
+    'access_control' => array(
+        // require ROLE_ADMIN for /admin*
+        array('path' => '^/adm', 'role' => 'ROLE_ADMIN'),
+    ),
+));

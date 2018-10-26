@@ -8,7 +8,7 @@ security:
 #            cost: 12
          AppBundle\Entity\User:
               algorithm: bcrypt    #加密方式
-#              cost: 12            ＃加密复杂度
+#              cost: 12            ＃指明算法的递归层数
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -30,8 +30,8 @@ security:
 #            http_basic: ~
             provider: our_db_provider
             form_login:
-                check_path: /login_check  #表单提交路由
-                login_path: /login        #登录页面跳转
+                check_path: /login_check  #表单提交地址
+                login_path: /login        #登录页面地址
                 #default_target_path: /
             logout:
                 path: /logout
@@ -40,7 +40,7 @@ security:
 
 
     access_control:
-            # require ROLE_ADMIN for /admin*
+            # require ROLE_ADMIN for /adm*
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }   #登录页面加入白名单允许匿名访问
         - { path: ^/adm/, roles: ROLE_ADMIN }       #指定角色可以访问
 
