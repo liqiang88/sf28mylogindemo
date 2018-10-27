@@ -9,6 +9,8 @@ $firewalls = [
         'anonymous' => null,
         'provider'  => 'our_db_provider',  //定义的providers
         'form_login'  => [
+            'username_parameter'  =>  '_username',  //默认值为_username，对应表单用户名域中的name值
+            'password_parameter'  =>  '_password',   //默认值为_password，对应表单密码域中的name值
             'check_path'  => 'login',  //登录表单提交地址
             'login_path'  => 'login',    //登录页面地址
         ],
