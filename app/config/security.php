@@ -9,12 +9,12 @@ $firewalls = [
         'anonymous' => null,
         'provider'  => 'our_db_provider',  //定义的providers
         'form_login'  => [
-            'check_path'  => '/login_check',  //登录表单提交地址
-            'login_path'  => '/login',    //登录页面地址
+            'check_path'  => 'login',  //登录表单提交地址
+            'login_path'  => 'login',    //登录页面地址
         ],
         'logout'  => [
-            'path'    => '/logout', //退出url
-            'target'  => '/',  //退出后跳转地址
+            'path'    => 'logout', //退出url
+            'target'  => 'homepage',  //退出后跳转地址
         ],
 
 
@@ -28,7 +28,7 @@ $container->loadFromExtension(
     [
         'encoders'     =>[
             'AppBundle\Entity\User'  => [
-                'algorithm'  => 'bcrypt',  //php>5.5 password_hash 密码长度至少产生60个字符
+                'algorithm'  => 'bcrypt',  //php>＝5.5 password_hash 密码长度至少产生60个字符，如果php<=5.4,则需要安装password-compat
                 'cost'       => 12  //指明算法的递归层数
             ]
         ],
