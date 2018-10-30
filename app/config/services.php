@@ -1,9 +1,11 @@
 <?php
 
-use AppBundle\Service\MessageGenerator;
+//use AppBundle\Service\MessageGenerator;
 use Symfony\Component\DependencyInjection\Reference;
-use AppBundle\EventListener\ExceptionListener;
-use AppBundle\EventSubscriber\ExceptionSubscriber;
+//use AppBundle\EventListener\ExceptionListener;
+//use AppBundle\EventSubscriber\ExceptionSubscriber;
+
+use AppBundle\Security\User\WebserviceUserProvider;
 
 //注册一个容器服务
 $container->register('app.message_generator', MessageGenerator::class)
@@ -27,3 +29,8 @@ $container->register('app.message_generator', MessageGenerator::class)
 ////mysqli服务
 //$container->register('db_mysqli', \AppBundle\Service\MysqliDb::class)
 //    ->setArguments(['%database_host%','%database_user%','%database_password%','%database_name%','%database_port%']);
+
+
+//注册一个user provider
+$container->register('app.webservice_user_provider', WebserviceUserProvider::class)
+->addArgument(new Reference('service_container'));
